@@ -1,0 +1,6 @@
+console.log(5 == "5"); // true (O JavaScript converte a string "5" no número 5. Como os valores agora são iguais, retorna true)
+console.log(5 === "5"); // false (O primeiro é do tipo number e o segundo é string. Tipos diferentes, resultado false)
+console.log(0 == false); // true (No JavaScript, o número 0 é considerado um valor "falsy" (falso). Ao comparar com boolean, ele converte o false para o número 0. 0 == 0 resulta em true)
+console.log(0 === false); // false (Um é number e o outro é boolean. Tipos diferentes, resultado false)
+console.log(null == undefined); // true (Esta é uma regra específica da linguagem. O JavaScript define que null (ausência intencional de valor) e undefined (variável sem valor definido) são equivalentes em valores soltos)
+console.log(null === undefined); // false (O tipo de null (que o typeof diz ser objeto) é diferente do tipo undefined. Tipos diferentes, resultado false)
