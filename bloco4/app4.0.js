@@ -57,8 +57,7 @@ btnAumentarJS.addEventListener('click', () => {
     console.log(`Nível JS Agora: ${novoNivel}%`)
 });
 
-/*Edição de perfil*/
-
+/* Edição de perfil */
 const btnEditarNome = document.querySelector('#btn-editar-nome');
 const formEdicao = document.querySelector('#form-edicao');
 const inputNome = document.querySelector('#input-nome');
@@ -70,14 +69,12 @@ btnEditarNome.addEventListener('click', () => {
     formEdicao.style.display = 'block';
 
     inputNome.value = nomeUsuario.textContent;
-    inputProfissao.value = profissaoUsuario.textContent;
+    inputProfissao.vale = profissaoUsuario.textContent;
 
-
-    console.log(`Formulário Aberto. Nome Atual: ${inputNome.value}`);
+    console.log(`Formulário Aberto. Nome atual: ${inputNome.value}`);
 });
 
-/*Salvar e Cancelar Alterações de perfil */
-
+/* Salvar e cancelar alterações de perfil */
 const btnSalvar = document.querySelector('#btn-salvar');
 const btnCancelar = document.querySelector('#btn-cancelar');
 
@@ -86,19 +83,81 @@ btnCancelar.addEventListener('click', () => {
     console.log("Edição Cancelada!");
 });
 
-btnSalvar.addEventListener('click', () =>{
+btnSalvar.addEventListener('click', () => {
     const novoNome = inputNome.value.trim();
     const novaProfissao = inputProfissao.value.trim();
 
     if(novoNome === ''){
-        alert('O nome não pode ser vazio! Idiota, não seja um frederico da vida inútil');
+        alert('O nome não pode ser vazio! Seu bocó!');
         return;
     }
-
     nomeUsuario.textContent = novoNome;
     profissaoUsuario.textContent = novaProfissao || 'Sem Profissão';
 
     formEdicao.style.display = 'none';
-
-    console.log(`Perfil salvo: ${novoNome} ${novaProfissao}`)
+    console.log(`Perfil salvo: ${novoNome} ${novaProfissao}`);
 });
+
+/* Troca de foto de perfil */
+
+const btnTrocarFoto = document.querySelector('#btn-trocar-foto');
+const fotoOpcoes = document.querySelector('#foto-opcoes');
+const fotoPerfil = document.querySelector('#foto-perfil');
+
+btnTrocarFoto.addEventListener('click', () => {
+    if(fotoOpcoes.style.display === 'block'){
+        fotoOpcoes.style.display = 'none';
+    } else{
+        fotoOpcoes.style.display = 'block'
+        formEdicao.style.display = 'none';
+    }
+});
+
+const todasFotos = document.querySelectorAll('.foto-opcao');
+todasFotos.forEach(opcao => {
+    opcao.addEventListener('click', () => {
+        const seed = opcao.dataset.seed;
+        fotoPerfil.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}`
+
+        todasFotos.forEach(f => f.classList.remove('selecionada'));
+        opcao.classList.add('selecionada');
+        fotoOpcoes.style.display = 'none';
+        console.log(`Avatar trocado para: ${seed}`);
+    });
+});
+
+/* Verificar conta e fazer upgrade */
+
+const btnVerificar = document.querySelector('#btn-verificar');
+const badgeVerificacao = document.querySelector('#badge-verificacao');
+const totalConexoes = document.querySelector('#total-conexoes');
+
+btnVerificar.addEventListener('click',() => {
+    badgeVerificacao.className = 'badge badge-green';
+    badgeVerificacao.textContent = 'Verificado';
+
+    const atual = parseInt(totalConexoes.textContent);
+    totalConexoes.textContent = atual + 1 ;
+
+    btnVerificar.textContent = 'Conta verificada';
+    btnVerificar.disabled = true;
+})
+
+const btnUpgrade = document.querySelector('#btn-upgrade');
+const badgePlano = document.querySelector('#badge-plano');
+const statusBadge = document.querySelector('#status-badge');
+
+btnUpgrade.addEventListener('click', () =>{
+    badgePlano.className = 'badge badge-purple';
+    badgePlano.textContent = 'Premium';
+
+    btnUpgrade.textContent = 'Plano premium ativado';
+    btnUpgrade.disabled = true;
+
+    const atual = parseInt(totalConexoes.textContent);
+    totalConexoes.textContent = atual + 50;
+
+    statusBadge.innerHTML = 'Premium';
+    statusBadge.style.background = '#faf5ff';
+    statusBadge.style.color = '#7c3aed';
+})
